@@ -1,19 +1,19 @@
 package com.practicaguiadauno.mvc.controllers;
 
-import com.practicaguiadauno.mvc.view.ViewPrincipal;
-import com.practicaguiadauno.mvc.view.reservaciones.Reportes;
+import com.practicaguiadauno.mvc.view.ViewMajor;
+import com.practicaguiadauno.mvc.view.reservations.Reports;
 
 public class ControllerReportes extends Functions {
 
-	private ViewPrincipal vp;
+	private ViewMajor vp;
 
-	public ControllerReportes(ViewPrincipal vp) {
+	public ControllerReportes(ViewMajor vp) {
 		this.vp = vp;
 	}
 
 	public void reportes() {
 
-		Reportes v = new Reportes();
+		Reports v = new Reports();
 
 		vp.setContenido(v, "Hotel La Cricka de Martha - Reportes");
 	}

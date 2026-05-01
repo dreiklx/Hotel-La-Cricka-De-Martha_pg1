@@ -9,20 +9,20 @@ import com.practicaguiadauno.mvc.model.ListaCategoriasA;
 import com.practicaguiadauno.mvc.model.ListaHabitaciones;
 import com.practicaguiadauno.mvc.model.ListaReservaciones;
 import com.practicaguiadauno.mvc.model.Reservacion;
-import com.practicaguiadauno.mvc.view.ViewPrincipal;
+import com.practicaguiadauno.mvc.view.ViewMajor;
 
 public class MainController {
 
 	private ListaCategoriasA categorias;
 	private ListaHabitaciones habitaciones;
 	private ListaReservaciones model;
-	private ViewPrincipal vp;
+	private ViewMajor vp;
 
 	public MainController() {
 		this.categorias = new ListaCategoriasA();
 		this.habitaciones = new ListaHabitaciones();
 		this.model = new ListaReservaciones();
-		this.vp = new ViewPrincipal();
+		this.vp = new ViewMajor();
 
 		init();
 	}

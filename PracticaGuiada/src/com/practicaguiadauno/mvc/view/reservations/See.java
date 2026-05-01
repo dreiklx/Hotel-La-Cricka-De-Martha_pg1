@@ -1,4 +1,4 @@
-package com.practicaguiadauno.mvc.view.reservaciones;
+package com.practicaguiadauno.mvc.view.reservations;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;

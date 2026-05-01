@@ -8,16 +8,16 @@ import com.practicaguiadauno.mvc.model.ListaAlimentos;
 import com.practicaguiadauno.mvc.model.ListaCategoriasA;
 import com.practicaguiadauno.mvc.model.ListaReservaciones;
 import com.practicaguiadauno.mvc.model.Reservacion;
-import com.practicaguiadauno.mvc.view.ViewPrincipal;
-import com.practicaguiadauno.mvc.view.reservaciones.Alimentos;
+import com.practicaguiadauno.mvc.view.ViewMajor;
+import com.practicaguiadauno.mvc.view.reservations.Food;
 
 public class ControllerAlimentos extends Functions {
 
-	private ViewPrincipal vp;
+	private ViewMajor vp;
 	private ListaReservaciones model;
 	private ListaCategoriasA categorias;
 
-	public ControllerAlimentos(ViewPrincipal vp,
+	public ControllerAlimentos(ViewMajor vp,
 			ListaReservaciones model,
 			ListaCategoriasA categorias) {
 
@@ -28,7 +28,7 @@ public class ControllerAlimentos extends Functions {
 
 	public void alimentos(int id) {
 
-		Alimentos v = new Alimentos();
+		Food v = new Food();
 
 		ListaAlimentos listaTemp = new ListaAlimentos();
 

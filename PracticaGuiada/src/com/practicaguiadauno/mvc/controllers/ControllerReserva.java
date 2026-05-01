@@ -13,23 +13,23 @@ import com.practicaguiadauno.mvc.model.ListaCategoriasA;
 import com.practicaguiadauno.mvc.model.ListaHabitaciones;
 import com.practicaguiadauno.mvc.model.ListaReservaciones;
 import com.practicaguiadauno.mvc.model.Reservacion;
-import com.practicaguiadauno.mvc.view.ViewPrincipal;
-import com.practicaguiadauno.mvc.view.reservaciones.Create;
-import com.practicaguiadauno.mvc.view.reservaciones.Index;
-import com.practicaguiadauno.mvc.view.reservaciones.See;
+import com.practicaguiadauno.mvc.view.ViewMajor;
+import com.practicaguiadauno.mvc.view.reservations.Create;
+import com.practicaguiadauno.mvc.view.reservations.Index;
+import com.practicaguiadauno.mvc.view.reservations.See;
 
 public class ControllerReserva extends Functions {
 
-	private ViewPrincipal vp;
-	private ListaReservaciones model;
+	private ViewMajor vp;
+	private ListaReservaciones reservaciones;
 	private ListaHabitaciones habitaciones;
 	private ListaCategoriasA categorias;
 
-	public ControllerReserva(ViewPrincipal vp, ListaReservaciones model,
+	public ControllerReserva(ViewMajor vp, ListaReservaciones reservaciones,
 			ListaHabitaciones habitaciones, ListaCategoriasA categorias) {
 
 		this.vp = vp;
-		this.model = model;
+		this.reservaciones = reservaciones;
 		this.habitaciones = habitaciones;
 		this.categorias = categorias;
 	}
@@ -37,96 +37,151 @@ public class ControllerReserva extends Functions {
 	public void create() {
 
 		Create v = new Create();
-
+		
+		
 		for (Habitacion h : habitaciones.getListaHabitaciones()) {
-			v.getCbxHabitaciones().addItem(h);
+			v.getCmbRoom().addItem(h);
 		}
 
-		v.getBtnReservar().addActionListener(e -> {
-
-			Habitacion habitacion = (Habitacion) v.getCbxHabitaciones().getSelectedItem();
-
-			LocalDate fechaEntrada = v.gettFechaEntrada().getDate()
-					.toInstant()
-					.atZone(ZoneId.systemDefault())
-					.toLocalDate();
-
-			LocalDate fechaSalida = v.gettFechaSalida().getDate()
-					.toInstant()
-					.atZone(ZoneId.systemDefault())
-					.toLocalDate();
-
-			String cliente = v.getTxtCliente().getText().trim();
-
-			int personas = Integer.parseInt(v.getSpinner().getValue().toString());
-
-			Reservacion r = new Reservacion(
-					habitacion,
-					cliente,
-					fechaEntrada,
-					fechaSalida,
-					personas
-			);
-
-			if (!model.disponible(habitacion, fechaEntrada, fechaSalida)) {
-
-				v.getLblYesNoHabDisp().setBackground(Color.RED);
-				v.getLblYesNoHabDisp().setText("No");
-				return;
-			}
-
-			if (!r.capacidadMaximaPermitida()) {
-
-				v.getLblyesNoPeople().setBackground(Color.RED);
-				v.getLblyesNoPeople().setText("No");
-				return;
-			}
-
-			v.getLblYesNoHabDisp().setBackground(Color.GREEN);
-			v.getLblYesNoHabDisp().setText("Si");
-
-			v.getLblyesNoPeople().setBackground(Color.GREEN);
-			v.getLblyesNoPeople().setText("Si");
-
-			v.getLblDato1().setText(habitacion.getNombre());
-			v.getLblDato2().setText(String.valueOf(habitacion.getCapacidad()));
-			v.getLblDato3().setText(String.valueOf(habitacion.getTarifa()));
-			v.getLblDato4().setText(fechaEntrada.toString());
-			v.getLblDato5().setText(fechaSalida.toString());
-			v.getLblDato6().setText(String.valueOf(personas));
-			v.getLblDato7().setText(String.valueOf(r.getCantNoches()));
-			v.getLblDato8().setText(String.valueOf(r.costoPorNoche()));
-			v.getLblDato9().setText(String.valueOf(r.costoTotalHospedaje()));
-
-			v.getTxtCliente().setText("");
-			v.getSpinner().setValue(0);
-			v.gettFechaEntrada().setDate(null);
-			v.gettFechaSalida().setDate(null);
-
-			model.add(new Reservacion(
-					habitacion,
-					cliente,
-					fechaEntrada,
-					fechaSalida,
-					personas
-			));
+		
+		v.getCmbRoom().addActionListener(e->{
+			Habitacion room =currentRoom(v);
+			v.getLblRoomD().setText(room.getNombre());
+			v.getLblCapacityD().setText(String.valueOf(room.getCapacidad()));
+			v.getLblRateNightD().setText(String.valueOf(room.getTarifa()));
+			loadData(v);
+		}); 
+		
+		v.getJclEntryDate().addPropertyChangeListener(e->{
+			if(v.getJclEntryDate().getDate() != null) {
+				v.getLblEntryDateD().setText(getEntry(v).toString());
+				dateFilter(v);
+				}
+			loadData(v);
+		});
+		v.getJclExitDate().addPropertyChangeListener(e->{
+			if(v.getJclExitDate().getDate() != null) {
+				v.getLblExitDateD().setText(getExit(v).toString());
+				dateFilter(v);
+				}
+			loadData(v);
+		});
+		
+		v.getSpnPeople().addChangeListener(e->{
+			Habitacion room =currentRoom(v);
+			int lot=getLot(v);
+			
+			v.getLblLotPersonsD().setText(String.valueOf(getLot(v)));
+			if (lot>room.getCapacidad()) {
+			
+					v.getLblAvailablePeople().setBackground(Color.RED);
+					v.getLblAvailablePeople().setText("No");
+					return;
+				}else {
+					v.getLblAvailablePeople().setBackground(Color.GREEN);
+					v.getLblAvailablePeople().setText("Si");
+				}
+			loadData(v);
 		});
 
-		v.getBtnCancelar().addActionListener(e -> {
+		v.getBtnReserve().addActionListener(e->{
+			
+		    if (currentRoom(v) == null) return;
 
-			v.getTxtCliente().setText("");
-			v.getSpinner().setValue(0);
-			v.gettFechaEntrada().setDate(null);
-			v.gettFechaSalida().setDate(null);
+		    Reservacion r = new Reservacion(
+		        currentRoom(v),
+		        v.getTxtClient().getText().trim(),
+		        getEntry(v),
+		        getExit(v),
+		        getLot(v)
+		    );
 
-			v.getLblYesNoHabDisp().setBackground(Color.GREEN);
-			v.getLblYesNoHabDisp().setText("Si");
+		    reservaciones.add(r);
+			v.getTxtClient().setText("");
+			v.getSpnPeople().setValue(0);
+			v.getJclEntryDate().setDate(null);
+			v.getJclExitDate().setDate(null);
+			
+		});
 
-			v.getLblyesNoPeople().setBackground(Color.GREEN);
-			v.getLblyesNoPeople().setText("Si");
+
+
+
+		
+		
+
+
+		
+		
+
+		v.getBtnCancel().addActionListener(e -> {
+
+			v.getTxtClient().setText("");
+			v.getSpnPeople().setValue(0);
+			v.getJclEntryDate().setDate(null);
+			v.getJclExitDate().setDate(null);
+
+			v.getLblAvailableRoom().setBackground(Color.GREEN);
+			v.getLblAvailableRoom().setText("Si");
+
+			v.getLblAvailablePeople().setBackground(Color.GREEN);
+			v.getLblAvailablePeople().setText("Si");
 		});
 
 		vp.setContenido(v, "Hotel La Cricka de Martha - Nueva Reservación");
+	}
+	public int getLot(Create v) {
+		return (int) v.getSpnPeople().getValue();
+	}
+	public LocalDate getEntry(Create v) {
+		return v.getJclEntryDate().getDate()
+				.toInstant()
+				.atZone(ZoneId.systemDefault())
+				.toLocalDate();
+	}
+	public LocalDate getExit(Create v) {
+		return v.getJclExitDate().getDate()
+				.toInstant()
+				.atZone(ZoneId.systemDefault())
+				.toLocalDate();
+	}
+	public void dateFilter(Create v) {
+		Habitacion h=currentRoom(v);
+		if(getEntry(v)!=null&&getExit(v)!=null) {
+			if(!reservaciones.disponible(h, getEntry(v), getExit(v))) {
+				v.getLblAvailableRoom().setBackground(Color.RED);
+				v.getLblAvailableRoom().setText("No");
+			}else {
+				v.getLblAvailableRoom().setBackground(Color.GREEN);
+				v.getLblAvailableRoom().setText("Si");
+			}
+		}
+	}
+	private void loadData(Create v) {
+
+	    if (v.getJclEntryDate().getDate() == null ||
+	        v.getJclExitDate().getDate() == null ||
+	        currentRoom(v) == null) {
+	        return;
+	    }
+
+	    String client = v.getTxtClient().getText().trim();
+
+	    Reservacion r = new Reservacion(
+	        currentRoom(v),
+	        client,
+	        getEntry(v),
+	        getExit(v),
+	        getLot(v)
+	    );
+
+	    v.getLblLotNightD().setText(String.valueOf(r.getCantNoches()));
+	    v.getLblCostNightD().setText(String.valueOf(r.costoPorNoche()));
+	    v.getLblTotalCostD().setText(String.valueOf(r.costoTotalHospedaje()));
+	}
+	public Habitacion currentRoom(Create v) {
+		Habitacion h=(Habitacion)v.getCmbRoom().getSelectedItem();
+		return h;
 	}
 
 	public void index() {
@@ -134,8 +189,8 @@ public class ControllerReserva extends Functions {
 		Index v = new Index();
 
 		v.getModelo().setDataVector(
-				model.getDataReservaciones(),
-				model.getColumsRes()
+				reservaciones.getDataReservaciones(),
+				reservaciones.getColumsRes()
 		);
 
 		v.getTextField().addKeyListener(new KeyListener() {
@@ -174,7 +229,7 @@ public class ControllerReserva extends Functions {
 			int id = getSelectedID(v.getTable());
 
 			if (id > 0) {
-				model.delete(id);
+				reservaciones.delete(id);
 				index();
 			} else {
 				JOptionPane.showMessageDialog(null, "Debe Seleccionar un Registro");
@@ -189,7 +244,7 @@ public class ControllerReserva extends Functions {
 
 				new ControllerAlimentos(
 						vp,
-						model,
+						reservaciones,
 						categorias
 				).alimentos(id);
 
@@ -205,7 +260,7 @@ public class ControllerReserva extends Functions {
 
 		See v = new See();
 
-		Reservacion r = model.find(id);
+		Reservacion r = reservaciones.find(id);
 
 		v.getModelo().setDataVector(
 				r.getListaAlimentos().getData(),
