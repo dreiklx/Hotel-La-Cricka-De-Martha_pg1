@@ -21,7 +21,7 @@ public class MainController {
 
 	public MainController() {
 
-		try {
+		//try {
 			this.categories = new FoodCategoryList();
 			this.rooms = new RoomList();
 			this.model = new ReservationList();
@@ -29,9 +29,9 @@ public class MainController {
 
 			init();
 
-		} catch (Exception e) {
-			Message.error("Error al iniciar la aplicación");
-		}
+	//	} catch (Exception e) {
+			//Message.error("Error al iniciar la aplicación");
+		//}
 	}
 
 	public void init() {

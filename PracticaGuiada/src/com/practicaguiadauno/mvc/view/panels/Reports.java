@@ -5,15 +5,20 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.practicaguiadauno.utils.Fonts;
+import com.practicaguiadauno.utils.ImageUtils;
+import com.practicaguiadauno.utils.LoadImages;
+import com.practicaguiadauno.utils.Themes;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JLabel;
-import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import java.awt.Color;
 
 public class Reports extends JPanel {
 
@@ -35,6 +40,7 @@ public class Reports extends JPanel {
 	private JDateChooser endDate;
 
 	public Reports() {
+		setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
 		panelClientesFrecuentes();
 		panelAlimentosConsumidos();
@@ -44,24 +50,37 @@ public class Reports extends JPanel {
 	public void panelClientesFrecuentes() {
 
 		JPanel pnlFrequentClients = new JPanel();
-		pnlFrequentClients.setBorder(BorderFactory.createTitledBorder("Clientes frecuentes"));
+		pnlFrequentClients.setOpaque(false);
+		TitledBorder border = BorderFactory.createTitledBorder("Clientes frecuentes");
+		border.setTitleFont(Fonts.title(20));
+		border.setTitleColor(Color.DARK_GRAY);
+		pnlFrequentClients.setBorder(border);
 
 		pnlFrequentClients.setPreferredSize(new Dimension(320, 10));
 		add(pnlFrequentClients, BorderLayout.WEST);
 		pnlFrequentClients.setLayout(new BorderLayout(0, 0));
 
 		scpClients = new JScrollPane();
+		scpClients.setOpaque(false);
 		pnlFrequentClients.add(scpClients, BorderLayout.CENTER);
 
 		modeloClientes = new DefaultTableModel();
 
 		tableClientes = new JTable(modeloClientes) {
-		    @Override
-		    public boolean isCellEditable(int row, int column) {
-		        return false;
-		    }
-		};
+			/**
+			 * No quiero cosas en amerillo
+			 */
+			private static final long serialVersionUID = 1L;
 
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		tableClientes.setOpaque(false);
+		tableClientes.setBackground(new Color(41, 77, 76));
+		tableClientes.setPreferredSize(new Dimension(300, 500));
+		Themes.setThemes(tableClientes);
 		tableClientes.getTableHeader().setReorderingAllowed(false);
 		tableClientes.getTableHeader().setResizingAllowed(false);
 
@@ -71,103 +90,131 @@ public class Reports extends JPanel {
 	public void panelAlimentosConsumidos() {
 
 		JPanel pnlMoreConsumed = new JPanel();
-		pnlMoreConsumed.setBorder(BorderFactory.createTitledBorder("Alimentos más consumidos"));
+		pnlMoreConsumed.setOpaque(false);
+		TitledBorder border = BorderFactory.createTitledBorder("Alimentos más consumidos");
+		border.setTitleFont(Fonts.title(20));
+		border.setTitleColor(Color.DARK_GRAY);
+		pnlMoreConsumed.setBorder(border);
 
 		add(pnlMoreConsumed, BorderLayout.CENTER);
 		pnlMoreConsumed.setLayout(new BorderLayout(0, 0));
 
 		scpFood = new JScrollPane();
+		scpFood.setOpaque(false);
 		pnlMoreConsumed.add(scpFood, BorderLayout.CENTER);
 
 		modeloAlimentos = new DefaultTableModel();
 
 		tableAlimentos = new JTable(modeloAlimentos) {
-		    /**
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-		    public boolean isCellEditable(int row, int column) {
-		        return false;
-		    }
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		};
-
+		tableAlimentos.setOpaque(false);
+		tableAlimentos.setBackground(new Color(41, 77, 76));
+		tableAlimentos.setPreferredSize(new Dimension(300, 500));
+		Themes.setThemes(tableAlimentos);
+		tableAlimentos.setFont(Fonts.text(13));
 		tableAlimentos.getTableHeader().setReorderingAllowed(false);
 		tableAlimentos.getTableHeader().setResizingAllowed(false);
 
 		scpFood.setViewportView(tableAlimentos);
-		// antes usaba scpClients 
+		// antes usaba scpClients
 	}
 
 	public void panelVentasTotales() {
+		TitledBorder border = BorderFactory.createTitledBorder("Ventas totales");
+		border.setTitleFont(Fonts.title(20));
+		border.setTitleColor(Color.DARK_GRAY);
 
 		JPanel pnlTotalSales = new JPanel();
-		pnlTotalSales.setBorder(BorderFactory.createTitledBorder("Ventas totales"));
+		pnlTotalSales.setBorder(border);
 
-		pnlTotalSales.setPreferredSize(new Dimension(10, 200));
+		pnlTotalSales.setPreferredSize(new Dimension(10, 250));
 		add(pnlTotalSales, BorderLayout.SOUTH);
 		pnlTotalSales.setLayout(null);
 
 		JLabel lblStartT = new JLabel("Fecha inicio");
-		lblStartT.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblStartT.setBounds(25, 43, 100, 14);
+		lblStartT.setForeground(Color.BLACK);
+		lblStartT.setFont(Fonts.text(13));
+		lblStartT.setBounds(25, 43, 100, 25);
 		pnlTotalSales.add(lblStartT);
 
 		JLabel lblEndT = new JLabel("Fecha fin");
-		lblEndT.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblEndT.setBounds(25, 90, 100, 14);
+		lblEndT.setForeground(Color.BLACK);
+		lblEndT.setFont(Fonts.text(13));
+		lblEndT.setBounds(25, 90, 100, 25);
 		pnlTotalSales.add(lblEndT);
 
 		startDate = new JDateChooser();
-		startDate.setBounds(97, 43, 173, 20);
+		startDate.setBounds(135, 43, 173, 25);
+		startDate.setFont(Fonts.text(13));
 		pnlTotalSales.add(startDate);
 
 		endDate = new JDateChooser(); // antes no se podia acceder desde controller
-		endDate.setBounds(97, 84, 173, 20);
+		endDate.setBounds(135, 90, 173, 25);
+		endDate.setFont(Fonts.text(13));
 		pnlTotalSales.add(endDate);
 
 		btnLoad = new JButton("Cargar");
-		btnLoad.setBounds(97, 141, 89, 23);
+		btnLoad.setPreferredSize(new Dimension(90, 35));
+		btnLoad.setFont(Fonts.title(17));
+
+		ImageUtils.setImageButton(btnLoad, LoadImages.ButtonBlue, 100, 30);
+
+		btnLoad.setBounds(135, 143, 89, 28);
 		pnlTotalSales.add(btnLoad);
 
 		JLabel lblReservationsT = new JLabel("Reservaciones:");
-		lblReservationsT.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblReservationsT.setBounds(354, 43, 100, 14);
+		lblReservationsT.setForeground(Color.BLACK);
+		lblReservationsT.setFont(Fonts.text(13));
+		lblReservationsT.setBounds(354, 43, 112, 25);
 		pnlTotalSales.add(lblReservationsT);
 
 		JLabel lblLodgingT = new JLabel("Total hospedaje:");
-		lblLodgingT.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblLodgingT.setBounds(354, 78, 120, 14);
+		lblLodgingT.setForeground(Color.BLACK);
+		lblLodgingT.setFont(Fonts.text(13));
+		lblLodgingT.setBounds(354, 78, 112, 25);
 		pnlTotalSales.add(lblLodgingT);
 
 		JLabel lblTotalFoodT = new JLabel("Total alimentos:");
-		lblTotalFoodT.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblTotalFoodT.setBounds(354, 114, 120, 14);
+		lblTotalFoodT.setForeground(Color.BLACK);
+		lblTotalFoodT.setFont(Fonts.text(13));
+		lblTotalFoodT.setBounds(354, 114, 112, 25);
 		pnlTotalSales.add(lblTotalFoodT);
 
 		JLabel lblTotalT = new JLabel("Total:");
-		lblTotalT.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblTotalT.setBounds(354, 150, 60, 14);
+		lblTotalT.setForeground(Color.BLACK);
+		lblTotalT.setFont(Fonts.text(13));
+		lblTotalT.setBounds(354, 150, 112, 25);
 		pnlTotalSales.add(lblTotalT);
 
 		lblReservations = new JLabel("");
-		lblReservations.setBounds(470, 43, 230, 14);
+		lblReservations.setBounds(470, 43, 230, 25);
+		lblReservations.setFont(Fonts.text(13));
 		pnlTotalSales.add(lblReservations);
 
 		lblLodging = new JLabel("");
-		lblLodging.setBounds(470, 78, 230, 14);
+		lblLodging.setBounds(470, 78, 230, 25);
+		lblLodging.setFont(Fonts.text(13));
 		pnlTotalSales.add(lblLodging);
 
 		lblTotalFood = new JLabel("");
-		lblTotalFood.setBounds(470, 114, 230, 14);
+		lblTotalFood.setBounds(470, 114, 230, 25);
+		lblTotalFood.setFont(Fonts.text(13));
 		pnlTotalSales.add(lblTotalFood);
 
 		lblTotal = new JLabel("");
-		lblTotal.setBounds(410, 150, 290, 14);
+		lblTotal.setBounds(470, 150, 231, 25);
+		lblTotal.setFont(Fonts.text(13));
 		pnlTotalSales.add(lblTotal);
 	}
-
 
 	public JDateChooser getStartDate() {
 		return startDate;
@@ -177,16 +224,47 @@ public class Reports extends JPanel {
 		return endDate;
 	}
 
+	public JTable getTableClientes() {
+		return tableClientes;
+	}
 
-	public JTable getTableClientes() { return tableClientes; }
-	public JTable getTableAlimentos() { return tableAlimentos; }
-	public JScrollPane getScrollPaneClientes() { return scpClients; }
-	public JScrollPane getScrollPaneAlimentos() { return scpFood; }
-	public JButton getBtnCargar() { return btnLoad; }
-	public JLabel getLblTotal() { return lblTotal; }
-	public JLabel getLblTotalalimentos() { return lblTotalFood; }
-	public JLabel getLblTotalhospedaje() { return lblLodging; }
-	public JLabel getLblReservaciones() { return lblReservations; }
-	public DefaultTableModel getModeloClientes() { return modeloClientes; }
-	public DefaultTableModel getModeloAlimentos() { return modeloAlimentos; }
+	public JTable getTableAlimentos() {
+		return tableAlimentos;
+	}
+
+	public JScrollPane getScrollPaneClientes() {
+		return scpClients;
+	}
+
+	public JScrollPane getScrollPaneAlimentos() {
+		return scpFood;
+	}
+
+	public JButton getBtnCargar() {
+		return btnLoad;
+	}
+
+	public JLabel getLblTotal() {
+		return lblTotal;
+	}
+
+	public JLabel getLblTotalalimentos() {
+		return lblTotalFood;
+	}
+
+	public JLabel getLblTotalhospedaje() {
+		return lblLodging;
+	}
+
+	public JLabel getLblReservaciones() {
+		return lblReservations;
+	}
+
+	public DefaultTableModel getModeloClientes() {
+		return modeloClientes;
+	}
+
+	public DefaultTableModel getModeloAlimentos() {
+		return modeloAlimentos;
+	}
 }

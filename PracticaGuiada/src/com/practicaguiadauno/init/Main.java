@@ -9,6 +9,7 @@ import com.practicaguiadauno.utils.Message;
 public class Main {
 
 	public static void main(String[] args) {
+		//new MainController();
 		try {
 
 			SwingUtilities.invokeLater(() -> {
@@ -23,7 +24,7 @@ public class Main {
 			});
 
 		} catch (Exception e) {
-			Message.error("Error crÃ­tico al iniciar la aplicaciÃ³n");
+			Message.error("Error crítico al iniciar la aplicación");
 		}
 	}
 }

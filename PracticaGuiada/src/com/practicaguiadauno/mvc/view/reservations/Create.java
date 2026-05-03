@@ -3,6 +3,7 @@ package com.practicaguiadauno.mvc.view.reservations;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -10,10 +11,14 @@ import javax.swing.JTextField;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import com.practicaguiadauno.mvc.model.Room; // antes Habitacion
-
+import com.practicaguiadauno.mvc.view.components.BackgroundCustom;
+import com.practicaguiadauno.utils.Fonts;
+import com.practicaguiadauno.utils.ImageUtils;
+import com.practicaguiadauno.utils.LoadImages;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JSpinner;
 import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 
 public class Create extends JPanel {
@@ -47,6 +52,7 @@ public class Create extends JPanel {
 	private JButton btnCancel;
 
 	public Create() {
+		setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
 		initReservationPanel();
 		initRequirementsPanel();
@@ -55,77 +61,103 @@ public class Create extends JPanel {
 
 	private void initReservationPanel() {
 
-		pnlRegisterReservation = new JPanel();
+		pnlRegisterReservation = new BackgroundCustom(LoadImages.Background);
+		pnlRegisterReservation.setOpaque(false);
 		add(pnlRegisterReservation, BorderLayout.CENTER);
-		pnlRegisterReservation.setBorder(BorderFactory.createTitledBorder("Datos de la reservación"));
+		TitledBorder border=BorderFactory.createTitledBorder("Datos de la reservación");
+		border.setTitleFont(Fonts.title(20));
+		border.setTitleColor(Color.WHITE);
+		pnlRegisterReservation.setBorder(border);
 		pnlRegisterReservation.setLayout(null);
 
 		JLabel lblRoom = new JLabel("Habitación:");
-		lblRoom.setBounds(20, 39, 100, 20);
+		lblRoom.setBounds(20, 37, 128, 25);
+		lblRoom.setFont(Fonts.text(13));
 		pnlRegisterReservation.add(lblRoom);
 
 		cmbRoom = new JComboBox<>();
-		cmbRoom.setBounds(130, 39, 173, 20);
+		cmbRoom.setBounds(181, 37, 193, 25);
+		cmbRoom.setFont(Fonts.text(13));
 		AutoCompleteDecorator.decorate(cmbRoom);
 		pnlRegisterReservation.add(cmbRoom);
 
 		JLabel lblEntryDate = new JLabel("Fecha de entrada:");
-		lblEntryDate.setBounds(20, 70, 100, 20);
+		lblEntryDate.setBounds(20, 73, 128, 25);
+		lblEntryDate.setFont(Fonts.text(13));
+
 		pnlRegisterReservation.add(lblEntryDate);
 
 		jclEntryDate = new JDateChooser();
-		jclEntryDate.setBounds(130, 70, 173, 20);
+		jclEntryDate.setBounds(181, 73, 193, 25);
+		jclEntryDate.setFont(Fonts.text(13));
 		pnlRegisterReservation.add(jclEntryDate);
 
 		JLabel lblExitDate = new JLabel("Fecha de salida:");
-		lblExitDate.setBounds(20, 101, 100, 20);
+		lblExitDate.setBounds(20, 109, 128, 25);
+		lblExitDate.setFont(Fonts.text(13));
 		pnlRegisterReservation.add(lblExitDate);
 
 		jclExitDate = new JDateChooser();
-		jclExitDate.setBounds(130, 101, 173, 20);
+		jclExitDate.setBounds(181, 109, 193, 25);
+		jclExitDate.setFont(Fonts.text(13));
 		pnlRegisterReservation.add(jclExitDate);
 
 		JLabel lblClient = new JLabel("Cliente:");
-		lblClient.setBounds(20, 132, 100, 20);
+		lblClient.setBounds(20, 145, 128, 25);
+		lblClient.setFont(Fonts.text(13));
+
 		pnlRegisterReservation.add(lblClient);
 
 		txtClient = new JTextField();
-		txtClient.setBounds(130, 132, 173, 20);
+		txtClient.setBounds(181, 145, 173, 25);
+		txtClient.setFont(Fonts.text(13));
 		pnlRegisterReservation.add(txtClient);
 
 		JLabel lblPersons = new JLabel("Personas:");
-		lblPersons.setBounds(20, 163, 100, 20);
+		lblPersons.setBounds(20, 181, 128, 25);
+		lblPersons.setFont(Fonts.text(13));
+
 		pnlRegisterReservation.add(lblPersons);
 
 		spnPeople = new JSpinner();
-		spnPeople.setBounds(130, 163, 100, 20);
+		spnPeople.setBounds(181, 181, 193, 25);
+		spnPeople.setFont(Fonts.text(13));
 		pnlRegisterReservation.add(spnPeople);
 	}
 
 	private void initRequirementsPanel() {
 
 		pnlRequirements = new JPanel();
+		pnlRequirements.setBackground(new Color(23, 7, 0));
 		pnlRequirements.setPreferredSize(new Dimension(300, 10));
 		add(pnlRequirements, BorderLayout.EAST);
-		pnlRequirements.setBorder(BorderFactory.createTitledBorder("Requisitos de la reservación"));
+		TitledBorder border=BorderFactory.createTitledBorder("Requisitos de la reservación");
+		border.setTitleFont(Fonts.title(20));
+		border.setTitleColor(Color.WHITE);
+		pnlRequirements.setBorder(border);
 		pnlRequirements.setLayout(null);
 
 		JLabel lblRoomFree = new JLabel("Habitación disponible");
 		lblRoomFree.setBounds(29, 55, 160, 14);
+		lblRoomFree.setFont(Fonts.text(13));
+
 		pnlRequirements.add(lblRoomFree);
 
 		JLabel lblMaxCapacity = new JLabel("Capacidad máxima");
 		lblMaxCapacity.setBounds(29, 134, 160, 14);
+		lblMaxCapacity.setFont(Fonts.text(13));
+
 		pnlRequirements.add(lblMaxCapacity);
 
 		lblAvailableRoom = new JLabel("...");
-		lblAvailableRoom.setOpaque(true);
+		lblAvailableRoom.setOpaque(false);
 		lblAvailableRoom.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAvailableRoom.setBounds(190, 52, 50, 40);
 		pnlRequirements.add(lblAvailableRoom);
 
 		lblAvailablePeople = new JLabel("...");
-		lblAvailablePeople.setOpaque(true);
+		lblAvailablePeople.setBackground(Color.LIGHT_GRAY);
+		lblAvailablePeople.setOpaque(false);
 		lblAvailablePeople.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAvailablePeople.setBounds(190, 118, 50, 40);
 		pnlRequirements.add(lblAvailablePeople);
@@ -134,89 +166,140 @@ public class Create extends JPanel {
 	private void initSummaryPanel() {
 
 		pnlPendingReservation = new JPanel();
-		pnlPendingReservation.setBorder(BorderFactory.createTitledBorder("Finalizar reservación"));
+		pnlPendingReservation.setBackground(new Color(71, 137, 125));
+		TitledBorder border=BorderFactory.createTitledBorder("Finalizar reservación");
+		border.setTitleFont(Fonts.title(20));
+		border.setTitleColor(Color.WHITE);
+		pnlPendingReservation.setBorder(border);
 		pnlPendingReservation.setPreferredSize(new Dimension(10, 200));
 		add(pnlPendingReservation, BorderLayout.SOUTH);
 		pnlPendingReservation.setLayout(null);
 
 		JLabel lblRoom = new JLabel("Habitación:");
-		lblRoom.setBounds(10, 46, 120, 14);
+		lblRoom.setBounds(10, 29, 120, 25);
+		lblRoom.setForeground(Color.BLACK);
+		lblRoom.setFont(Fonts.text(13));
+
 		pnlPendingReservation.add(lblRoom);
 
 		JLabel lblCapacity = new JLabel("Capacidad máxima:");
-		lblCapacity.setBounds(10, 71, 140, 14);
+		lblCapacity.setBounds(10, 60, 140, 25);
+		lblCapacity.setFont(Fonts.text(13));
+		lblCapacity.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblCapacity);
 
 		JLabel lblRateNight = new JLabel("Tarifa por persona:");
-		lblRateNight.setBounds(10, 96, 140, 14);
+		lblRateNight.setBounds(10, 91, 140, 25);
+		lblRateNight.setFont(Fonts.text(13));
+		lblRateNight.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblRateNight);
 
 		JLabel lblEntryDate = new JLabel("Fecha de entrada:");
-		lblEntryDate.setBounds(10, 121, 120, 14);
+		lblEntryDate.setBounds(10, 121, 120, 25);
+		lblEntryDate.setFont(Fonts.text(13));
+		lblEntryDate.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblEntryDate);
 
 		JLabel lblExitDate = new JLabel("Fecha de salida:");
-		lblExitDate.setBounds(10, 146, 120, 14);
+		lblExitDate.setBounds(10, 150, 120, 25);
+		lblExitDate.setFont(Fonts.text(13));
+		lblExitDate.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblExitDate);
 
 		lblRoomD = new JLabel();
-		lblRoomD.setBounds(150, 46, 200, 14);
+		lblRoomD.setBounds(150, 29, 200, 25);
+		lblRoomD.setFont(Fonts.text(13));
+		lblRoomD.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblRoomD);
 
 		lblCapacityD = new JLabel();
-		lblCapacityD.setBounds(150, 71, 200, 14);
+		lblCapacityD.setBounds(150, 60, 200, 25);
+		lblCapacityD.setFont(Fonts.text(13));
+		lblCapacityD.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblCapacityD);
 
 		lblRateNightD = new JLabel();
-		lblRateNightD.setBounds(150, 96, 200, 14);
+		lblRateNightD.setBounds(150, 91, 200, 25);
+		lblRateNightD.setFont(Fonts.text(13));
+		lblRateNightD.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblRateNightD);
 
 		lblEntryDateD = new JLabel();
-		lblEntryDateD.setBounds(150, 121, 200, 14);
+		lblEntryDateD.setBounds(150, 121, 200, 25);
+		lblEntryDateD.setFont(Fonts.text(13));
+		lblEntryDateD.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblEntryDateD);
 
 		lblExitDateD = new JLabel();
-		lblExitDateD.setBounds(150, 146, 200, 14);
+		lblExitDateD.setBounds(150, 150, 200, 25);
+		lblExitDateD.setFont(Fonts.text(13));
+		lblExitDateD.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblExitDateD);
 
 		JLabel lblLotPersons = new JLabel("Personas:");
-		lblLotPersons.setBounds(400, 46, 120, 14);
+		lblLotPersons.setBounds(400, 29, 120, 25);
+		lblLotPersons.setFont(Fonts.text(13));
+		lblLotPersons.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblLotPersons);
 
 		JLabel lblLotNight = new JLabel("Noches:");
-		lblLotNight.setBounds(400, 71, 120, 14);
+		lblLotNight.setBounds(400, 60, 120, 25);
+		lblLotNight.setFont(Fonts.text(13));
+		lblLotNight.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblLotNight);
 
 		JLabel lblCostNight = new JLabel("Costo por noche:");
-		lblCostNight.setBounds(400, 96, 140, 14);
+		lblCostNight.setBounds(400, 91, 140, 25);
+		lblCostNight.setFont(Fonts.text(13));
+		lblCostNight.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblCostNight);
 
 		JLabel lblTotalCost = new JLabel("Total hospedaje:");
-		lblTotalCost.setBounds(400, 121, 140, 14);
+		lblTotalCost.setBounds(400, 121, 140, 25);
+		lblTotalCost.setFont(Fonts.text(13));
+		lblTotalCost.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblTotalCost);
 
 		lblLotPersonsD = new JLabel();
-		lblLotPersonsD.setBounds(540, 46, 100, 14);
+		lblLotPersonsD.setBounds(540, 29, 187, 25);
+		lblLotPersonsD.setFont(Fonts.text(13));
+		lblLotPersonsD.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblLotPersonsD);
 
 		lblLotNightD = new JLabel();
-		lblLotNightD.setBounds(540, 71, 100, 14);
+		lblLotNightD.setBounds(540, 60, 187, 25);
+		lblLotNightD.setFont(Fonts.text(13));
+		lblLotNightD.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblLotNightD);
 
 		lblCostNightD = new JLabel();
-		lblCostNightD.setBounds(540, 96, 120, 14);
+		lblCostNightD.setBounds(540, 91, 187, 25);
+		lblCostNightD.setFont(Fonts.text(13));
+		lblCostNightD.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblCostNightD);
 
 		lblTotalCostD = new JLabel();
-		lblTotalCostD.setBounds(540, 121, 120, 14);
+		lblTotalCostD.setBounds(540, 121, 187, 25);
+		lblTotalCostD.setFont(Fonts.text(13));
+		lblTotalCostD.setForeground(Color.BLACK);
 		pnlPendingReservation.add(lblTotalCostD);
 
 		btnReserve = new JButton("Reservar");
-		btnReserve.setBounds(400, 150, 120, 25);
+		btnReserve.setPreferredSize(new Dimension(110, 30));
+		btnReserve.setFont(Fonts.title(17));
+		
+		ImageUtils.setImageButton(btnReserve, LoadImages.ButtonGreen, 110, 30);
+		
+		btnReserve.setBounds(400, 157, 110, 30);
 		pnlPendingReservation.add(btnReserve);
 
 		btnCancel = new JButton("Cancelar");
-		btnCancel.setBounds(530, 150, 120, 25);
+		btnCancel.setPreferredSize(new Dimension(110, 30));
+		
+		ImageUtils.setImageButton(btnCancel, LoadImages.ButtonRed, 110, 30);
+		
+		btnCancel.setFont(Fonts.title(17));
+		btnCancel.setBounds(540, 157, 120, 30);
 		pnlPendingReservation.add(btnCancel);
 	}
 

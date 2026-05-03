@@ -10,7 +10,7 @@ import com.practicaguiadauno.mvc.view.panels.See;
 import com.practicaguiadauno.mvc.view.reservations.Create;
 import com.practicaguiadauno.mvc.view.reservations.Edit;
 import com.practicaguiadauno.mvc.view.reservations.Index;
-import com.practicaguiadauno.utils.IconUtils;
+import com.practicaguiadauno.utils.ImageUtils;
 import com.practicaguiadauno.utils.Message;
 
 public class ReservationController extends Functions {
@@ -343,6 +343,13 @@ public class ReservationController extends Functions {
 	}
 
 	private void updateDates(Create v) {
+		if(getEntry(v)!=null) {
+			v.getLblEntryDateD().setText(getEntry(v)+"");
+		}
+		if(getExit(v)!=null) {
+			v.getLblExitDateD().setText(getExit(v)+"");
+		}
+		
 		updateAvailability(v);
 		updateCalculations(v);
 	}
@@ -357,9 +364,9 @@ public class ReservationController extends Functions {
 	    v.getLblAvailablePeople().setOpaque(true);
 
 	    if (people > room.getCapacity()) {
-	        v.getLblAvailablePeople().setIcon(IconUtils.getIcon("x.png", 32, 32));
+	        v.getLblAvailablePeople().setIcon(ImageUtils.getIcon("x.png", 32, 32));
 	    } else {
-	        v.getLblAvailablePeople().setIcon(IconUtils.getIcon("check.png", 32, 32));
+	        v.getLblAvailablePeople().setIcon(ImageUtils.getIcon("check.png", 32, 32));
 	    }
 
 	    v.refreshRequirements();
@@ -376,12 +383,12 @@ public class ReservationController extends Functions {
 	    if (entry == null || exit == null) return;
 
 	    v.getLblAvailableRoom().setText("");
-	    v.getLblAvailableRoom().setOpaque(true);
+	    v.getLblAvailableRoom().setOpaque(false);
 
 	    if (!reservations.isAvailable(room, entry, exit)) {
-	        v.getLblAvailableRoom().setIcon(IconUtils.getIcon("x.png", 32, 32));
+	        v.getLblAvailableRoom().setIcon(ImageUtils.getIcon("x.png", 32, 32));
 	    } else {
-	        v.getLblAvailableRoom().setIcon(IconUtils.getIcon("check.png", 32, 32));
+	        v.getLblAvailableRoom().setIcon(ImageUtils.getIcon("check.png", 32, 32));
 	    }
 
 	    v.refreshRequirements();
