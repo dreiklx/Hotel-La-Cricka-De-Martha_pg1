@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import java.awt.Color;
+import java.awt.Font;
 
 public class See extends JPanel {
 
@@ -68,7 +69,7 @@ public class See extends JPanel {
 		border.setTitleColor(Color.WHITE);
 		panel.setBorder(border);
 		
-		panel.setPreferredSize(new Dimension(290, 10));
+		panel.setPreferredSize(new Dimension(230, 10));
 		add(panel, BorderLayout.WEST);
 		panel.setLayout(null);
 
@@ -120,21 +121,21 @@ public class See extends JPanel {
 		
 		ImageUtils.setImageButton(btnEditar, LoadImages.ButtonGreen, 100, 30);
 		
-		btnEditar.setBounds(99, 251, 100, 30);
+		btnEditar.setBounds(66, 251, 100, 30);
 		panel.add(btnEditar);
 
 		lblId = new JLabel("");
-		lblId.setBounds(76, 30, 81, 25);
+		lblId.setBounds(33, 30, 81, 25);
 		lblId.setFont(Fonts.text(13));
 		panel.add(lblId);
 
 		lblCliente = new JLabel("");
-		lblCliente.setBounds(76, 55, 112, 25);
+		lblCliente.setBounds(66, 55, 112, 25);
 		lblCliente.setFont(Fonts.text(13));
 		panel.add(lblCliente);
 
 		lblHabitacion = new JLabel("");
-		lblHabitacion.setBounds(76, 81, 130, 25);
+		lblHabitacion.setBounds(87, 81, 130, 25);
 		lblHabitacion.setFont(Fonts.text(13));
 		panel.add(lblHabitacion);
 
@@ -144,7 +145,7 @@ public class See extends JPanel {
 		panel.add(lblCapMax);
 
 		lblTarifa = new JLabel("");
-		lblTarifa.setBounds(198, 131, 74, 25);
+		lblTarifa.setBounds(186, 131, 94, 25);
 		lblTarifa.setFont(Fonts.text(13));
 		panel.add(lblTarifa);
 
@@ -251,13 +252,13 @@ public class See extends JPanel {
 		lblNewLabel_11 = new JLabel("Costo total de alimentos:");
 	
 		lblNewLabel_11.setFont(Fonts.text(13));
-		lblNewLabel_11.setBounds(10, 132, 164, 25);
+		lblNewLabel_11.setBounds(10, 136, 164, 25);
 		panel_2.add(lblNewLabel_11);
 
 		JLabel lblNewLabel_12 = new JLabel("Total:");
 	
-		lblNewLabel_12.setFont(Fonts.text(13));
-		lblNewLabel_12.setBounds(30, 157, 85, 25);
+		lblNewLabel_12.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblNewLabel_12.setBounds(20, 164, 55, 25);
 		panel_2.add(lblNewLabel_12);
 
 		lblCantPer = new JLabel("");
@@ -286,8 +287,8 @@ public class See extends JPanel {
 		panel_2.add(lblCostoTAlimentos);
 
 		lblTotal = new JLabel("");
-		lblTotal.setFont(Fonts.text(13));
-		lblTotal.setBounds(125, 157, 124, 25);
+		lblTotal.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblTotal.setBounds(85, 164, 124, 25);
 		panel_2.add(lblTotal);
 	}
 

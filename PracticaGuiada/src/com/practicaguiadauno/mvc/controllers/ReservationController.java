@@ -162,7 +162,7 @@ public class ReservationController extends Functions {
 
 			if (id > 0) {
 
-				new FoodController(vp, reservations, categories).food(id);
+				new FoodController(vp, reservations, categories, this).food(id);
 
 			} else {
 				Message.warning("Seleccione un registro");
@@ -283,9 +283,17 @@ public class ReservationController extends Functions {
 		v.getBtnAlimentos().addActionListener(e -> {
 			try {
 				int idd = r.getId();
-				new FoodController(vp, reservations, categories).food(idd);
+				new FoodController(vp, reservations, categories, this).food(idd);
 			} catch (Exception ex) {
 				Message.error("Error al abrir alimentos");
+			}
+		});
+		
+		v.getBtnEditar().addActionListener(e -> {
+			try {
+				edit(id);
+			} catch (Exception e2) {
+				Message.error(e2.getMessage());
 			}
 		});
 

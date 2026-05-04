@@ -6,7 +6,10 @@ import com.practicaguiadauno.mvc.model.FoodList;
 import com.practicaguiadauno.mvc.model.FoodCategoryList;
 import com.practicaguiadauno.mvc.model.Reservation;
 import com.practicaguiadauno.mvc.model.ReservationList;
+import com.practicaguiadauno.mvc.model.RoomList;
 import com.practicaguiadauno.mvc.view.ViewMajor;
+import com.practicaguiadauno.mvc.view.panels.FoodView;
+import com.practicaguiadauno.mvc.view.reservations.Create;
 import com.practicaguiadauno.utils.Message;
 
 public class FoodController extends Functions {
@@ -14,39 +17,45 @@ public class FoodController extends Functions {
 	private ViewMajor vp;
 	private ReservationList model;
 	private FoodCategoryList categories;
+	private ReservationController rc;
 
 	public FoodController(ViewMajor vp,
 			ReservationList model,
-			FoodCategoryList categories) {
+			FoodCategoryList categories, ReservationController rc) {
 
 		this.vp = vp;
 		this.model = model;
 		this.categories = categories;
+		this.rc = rc;
 	}
 
 	public void food(int id) {
-
+		
 		try {
 
 			com.practicaguiadauno.mvc.view.panels.FoodView v =
 					new com.practicaguiadauno.mvc.view.panels.FoodView();
 
-			FoodList tempList = new FoodList();
 
 			Reservation r = model.find(id);
-
+			
 			if (r == null) {
 				Message.error("Reservación no encontrada");
 				return; // antes no se validaba esto
 			}
 
+			FoodList tempList = new FoodList();
+			for (Food f  : r.getFoodList().getFoodList()) {
+				tempList.add(new Food(f, f.getQuantity()));
+			}
+			
 			for (FoodCategory c : categories.getCategoryList()) {
 				v.getCbxCategoria().addItem(c);
 			}
 
 			v.getModelo().setDataVector(
-					r.getFoodList().getData(),
-					r.getFoodList().getColumns()
+					tempList.getData(),
+					tempList.getColumns()
 			);
 
 			v.getLblId().setText(String.valueOf(r.getId()));
@@ -57,7 +66,7 @@ public class FoodController extends Functions {
 			v.getLblEntrada().setText(String.valueOf(r.getEntryDate()));
 			v.getLblSalida().setText(String.valueOf(r.getExitDate()));
 			v.getLblTotalalimentos().setText(
-					String.valueOf(r.getFoodList().totalFoods())
+					String.valueOf(tempList.totalFoods())
 			);
 
 			v.getCbxCategoria().addActionListener(e -> {
@@ -133,8 +142,8 @@ public class FoodController extends Functions {
 				}
 			});
 
-			v.getBtnCancelar().addActionListener(e -> {
-
+			v.getBtnEliminar().addActionListener(e -> {
+				
 				try {
 
 					int idd = getSelectedID(v.getTable());
@@ -176,10 +185,34 @@ public class FoodController extends Functions {
 				}
 			});
 
+			v.getSpinner().addChangeListener(e -> {setSubtotal(v);});		
+			v.getCbxAlimento().addActionListener(e -> {setSubtotal(v);});
+			
+			v.getBtnCancelar().addActionListener(e -> {
+			    rc.index();
+			});
+			
 			vp.setContenido(v, "Hotel La Cricka de Martha - Alimentos");
 
 		} catch (Exception e) {
 			Message.error("Error al cargar vista de alimentos");
 		}
 	}
+	
+	// ================= HELPERS =================
+	
+	private void setSubtotal(FoodView v) {
+	    try {
+	        Food selected = (Food) v.getCbxAlimento().getSelectedItem();
+	        if (selected == null) return;
+
+	        int quantity = (int) v.getSpinner().getValue();
+
+	        Food temp = new Food(selected, quantity);
+	        v.getLblSubtotal().setText(String.valueOf(temp.getSubtotal()));
+	    } catch (Exception ex) {}
+	}
+	
+	
+	
 }

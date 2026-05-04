@@ -22,6 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import java.awt.FlowLayout;
 import java.awt.Color;
+import java.awt.Font;
 
 public class FoodView extends JPanel {
 
@@ -273,13 +274,14 @@ public class FoodView extends JPanel {
 
 		JLabel lblTotalFoodT = new JLabel("Total alimentos:");
 		lblTotalFoodT.setForeground(Color.BLACK);
-		lblTotalFoodT.setBounds(10, 33, 160, 25);
-		lblTotalFoodT.setFont(Fonts.text(13));
+		lblTotalFoodT.setBounds(10, 33, 145, 25);
+		lblTotalFoodT.setFont(new Font("Dialog", Font.PLAIN, 20));
 		pnlResult.add(lblTotalFoodT);
 
 		lblTotalFood = new JLabel("");
-		lblTotalFood.setFont(Fonts.text(13));
-		lblTotalFood.setBounds(180, 33, 176, 25);
+		lblTotalFood.setForeground(Color.BLACK);
+		lblTotalFood.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblTotalFood.setBounds(157, 33, 176, 25);
 		pnlResult.add(lblTotalFood);
 
 		btnSave = new JButton("Guardar");
@@ -317,4 +319,5 @@ public class FoodView extends JPanel {
 	public JButton getBtnCancelar() { return btnCancel; }
 	public JButton getBtnGuardar() { return btnSave; }
 	public JLabel getLblTotalalimentos() { return lblTotalFood; }
+	public JButton getBtnEliminar() { return btnDelete;}
 }

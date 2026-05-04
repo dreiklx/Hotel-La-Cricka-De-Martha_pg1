@@ -37,7 +37,7 @@ public class ViewMajor extends JFrame {
 		
 		setIconImage(ImageUtils.getScaledIcon(LoadImages.Icon, 128, 128).getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 849, 525);
+		setBounds(100, 100, 1056, 602);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
