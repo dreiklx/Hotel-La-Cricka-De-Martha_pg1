@@ -24,7 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import java.awt.FlowLayout;
 import java.awt.Color;
-import java.awt.Font;
+
 
 public class FoodView extends JPanel {
 
@@ -277,7 +277,7 @@ public class FoodView extends JPanel {
 
 		JLabel lblTotalFoodT = new JLabel("Total alimentos:");
 		lblTotalFoodT.setBorder(new LineBorder(new Color(255, 228, 181), 3, true));
-		lblTotalFoodT.setBackground(new Color(41,77,76,200));
+		lblTotalFoodT.setBackground(new Color(41,77,76));
 		lblTotalFoodT.setOpaque(true);
 		lblTotalFoodT.setBounds(30, 25, 145, 40);
 		lblTotalFoodT.setFont(Fonts.text(17));
@@ -286,7 +286,7 @@ public class FoodView extends JPanel {
 		lblTotalFood = new JLabel("");
 		lblTotalFood.setBorder(new LineBorder(new Color(255, 228, 181), 3, true));
 		lblTotalFood.setOpaque(true);
-		lblTotalFood.setBackground(new Color(41,77,76,200));
+		lblTotalFood.setBackground(new Color(41,77,76));
 		lblTotalFood.setFont(Fonts.text(17));
 		lblTotalFood.setBounds(174, 25, 174, 40);
 		pnlResult.add(lblTotalFood);

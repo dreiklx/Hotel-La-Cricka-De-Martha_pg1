@@ -6,10 +6,10 @@ import com.practicaguiadauno.mvc.model.FoodList;
 import com.practicaguiadauno.mvc.model.FoodCategoryList;
 import com.practicaguiadauno.mvc.model.Reservation;
 import com.practicaguiadauno.mvc.model.ReservationList;
-import com.practicaguiadauno.mvc.model.RoomList;
+
 import com.practicaguiadauno.mvc.view.ViewMajor;
 import com.practicaguiadauno.mvc.view.panels.FoodView;
-import com.practicaguiadauno.mvc.view.reservations.Create;
+
 import com.practicaguiadauno.utils.Message;
 
 public class FoodController extends Functions {
