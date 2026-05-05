@@ -3,7 +3,7 @@ package com.practicaguiadauno.mvc.controllers;
 import java.awt.Color;
 import java.time.LocalDate;
 import java.time.ZoneId;
-
+ 
 import com.practicaguiadauno.mvc.model.*;
 import com.practicaguiadauno.mvc.view.ViewMajor;
 import com.practicaguiadauno.mvc.view.panels.See;
@@ -87,15 +87,14 @@ public class ReservationController extends Functions {
 				reservations.add(r);
 
 				Message.info("Reservación creada");
-
-				clearForm(v);
+				create();
 
 			} catch (Exception ex) {
 				Message.error(ex.getMessage());
 			}
 		});
 
-		v.getBtnCancel().addActionListener(e -> clearForm(v));
+		v.getBtnCancel().addActionListener(e -> create());
 
 		vp.setContenido(v, "Hotel La Cricka de Martha - Nueva Reservación");
 	}
@@ -121,7 +120,7 @@ public class ReservationController extends Functions {
 
 		            String text = java.util.regex.Pattern.quote(v.getTxtSearch().getText());
 
-		            search(v.getTable(), text, 1, 2);
+		            search(v.getTable(), text, 1, 2, 3, 4);
 
 		        } catch (Exception ex) {
 		            Message.error("Error al buscar");
@@ -220,7 +219,7 @@ public class ReservationController extends Functions {
 				if (client.isEmpty()) throw new Exception("Nombre requerido");
 
 				Room room = (Room) v.getCmbRoom().getSelectedItem();
-
+						
 				if (room == null) throw new Exception("Seleccione habitación");
 
 				int people = (int) v.getSpnPeople().getValue();
@@ -242,9 +241,10 @@ public class ReservationController extends Functions {
 					throw new Exception("Fechas requeridas");
 				}
 
-				if (exit.isBefore(entry)) {
-					throw new Exception("Fechas inválidas");
+				if(!reservations.isAvailableExcluding(room, entry, exit, r.getId())) {
+					throw new Exception("Ya Existe una Reservación en ese Rango de Fechas");
 				}
+
 
 				r.setClientName(client);
 				r.setRoom(room);
@@ -425,14 +425,4 @@ public class ReservationController extends Functions {
 		v.getLblTotalCostD().setText(String.valueOf(r.totalLodgingCost()));
 	}
 
-	private void clearForm(Create v) {
-
-		v.getTxtClient().setText("");
-		v.getSpnPeople().setValue(0);
-		v.getJclEntryDate().setDate(null);
-		v.getJclExitDate().setDate(null);
-
-		v.getLblAvailableRoom().setText("");
-		v.getLblAvailablePeople().setText("");
-	}
 }

@@ -53,7 +53,6 @@ public class ViewMajor extends JFrame {
 		setTitle("La Cricka de Martha");
 		setLocationRelativeTo(null);
 		setVisible(true); 
-		setResizable(false);
 	}
 
 	public void initComponents() {

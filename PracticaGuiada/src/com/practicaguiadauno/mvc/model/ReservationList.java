@@ -49,14 +49,11 @@ public class ReservationList {
 	}
 
 	public String getAll() {
-		return reservationList.stream()
-				.map(obj -> obj.toString())
-				.collect(Collectors.joining("\n"));
+		return reservationList.stream().map(obj -> obj.toString()).collect(Collectors.joining("\n"));
 	}
 
 	public String[] getColumns() {
-		return new String[] { "ID", "Cliente", "Habitación", "Entrada", "Salida",
-				"Personas", "Noches" };
+		return new String[] { "ID", "Cliente", "Habitación", "Entrada", "Salida", "Personas", "Noches" };
 	}
 
 	public Object[][] getData() {
@@ -82,12 +79,18 @@ public class ReservationList {
 	}
 
 	public boolean isAvailable(Room room, LocalDate entry, LocalDate exit) {
-
 		if (room == null || entry == null || exit == null) {
-			return false; // antes no validaba null
+			return false;
 		}
+		return reservationList.stream().filter(e -> e.getRoom().getId() == room.getId())
+				.noneMatch(e -> entry.isBefore(e.getExitDate()) && exit.isAfter(e.getEntryDate()));
+	}
 
-		return reservationList.stream()
+	public boolean isAvailableExcluding(Room room, LocalDate entry, LocalDate exit, int excludeId) {
+		if (room == null || entry == null || exit == null) {
+			return false;
+		}
+		return reservationList.stream().filter(e -> e.getId() != excludeId)//excluye la reservacion actual en edit
 				.filter(e -> e.getRoom().getId() == room.getId())
 				.noneMatch(e -> entry.isBefore(e.getExitDate()) && exit.isAfter(e.getEntryDate()));
 	}
@@ -101,8 +104,7 @@ public class ReservationList {
 		}
 
 		List<Reservation> result = reservationList.stream()
-				.filter(e -> e.getClientName().equalsIgnoreCase(client.trim()))
-				.collect(Collectors.toList());
+				.filter(e -> e.getClientName().equalsIgnoreCase(client.trim())).collect(Collectors.toList());
 
 		filtered.reservationList.addAll(result);
 
@@ -163,42 +165,39 @@ public class ReservationList {
 
 		return data;
 	}
-	
+
 	public Object[][] getTopFoods() {
 
-	    java.util.HashMap<String, Integer> map = new java.util.HashMap<>();
+		java.util.HashMap<String, Integer> map = new java.util.HashMap<>();
 
-	    for (Reservation r : reservationList) {
+		for (Reservation r : reservationList) {
 
-	        for (Food f : r.getFoodList().getFoodList()) {
+			for (Food f : r.getFoodList().getFoodList()) {
 
-	            map.put(
-	                f.getName(),
-	                map.getOrDefault(f.getName(), 0) + f.getQuantity()
-	            );
-	        }
-	    }
+				map.put(f.getName(), map.getOrDefault(f.getName(), 0) + f.getQuantity());
+			}
+		}
 
-	    java.util.List<java.util.Map.Entry<String, Integer>> list =
-	            new java.util.ArrayList<>(map.entrySet());
+		java.util.List<java.util.Map.Entry<String, Integer>> list = new java.util.ArrayList<>(map.entrySet());
 
-	    list.sort((a, b) -> b.getValue().compareTo(a.getValue()));
+		list.sort((a, b) -> b.getValue().compareTo(a.getValue()));
 
-	    int size = Math.min(5, list.size());
+		int size = Math.min(5, list.size());
 
-	    Object[][] data = new Object[size][2];
+		Object[][] data = new Object[size][2];
 
-	    for (int i = 0; i < size; i++) {
-	        data[i][0] = list.get(i).getKey();
-	        data[i][1] = list.get(i).getValue();
-	    }
+		for (int i = 0; i < size; i++) {
+			data[i][0] = list.get(i).getKey();
+			data[i][1] = list.get(i).getValue();
+		}
 
-	    return data;
+		return data;
 	}
 
 	public String[] getFoodColumns() {
-	    return new String[] { "Nombre", "Cantidad" };
+		return new String[] { "Nombre", "Cantidad" };
 	}
+
 	public ArrayList<Reservation> getReservationList() {
 		return reservationList;
 	}
