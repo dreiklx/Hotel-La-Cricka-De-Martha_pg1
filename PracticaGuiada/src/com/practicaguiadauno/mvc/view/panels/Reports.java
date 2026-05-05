@@ -53,7 +53,7 @@ public class Reports extends JPanel {
 		pnlFrequentClients.setOpaque(false);
 		TitledBorder border = BorderFactory.createTitledBorder("Clientes frecuentes");
 		border.setTitleFont(Fonts.title(20));
-		border.setTitleColor(Color.DARK_GRAY);
+		border.setTitleColor(Color.WHITE);
 		pnlFrequentClients.setBorder(border);
 
 		pnlFrequentClients.setPreferredSize(new Dimension(320, 10));
@@ -93,7 +93,7 @@ public class Reports extends JPanel {
 		pnlMoreConsumed.setOpaque(false);
 		TitledBorder border = BorderFactory.createTitledBorder("Alimentos más consumidos");
 		border.setTitleFont(Fonts.title(20));
-		border.setTitleColor(Color.DARK_GRAY);
+		border.setTitleColor(Color.WHITE);
 		pnlMoreConsumed.setBorder(border);
 
 		add(pnlMoreConsumed, BorderLayout.CENTER);
@@ -131,7 +131,7 @@ public class Reports extends JPanel {
 	public void panelVentasTotales() {
 		TitledBorder border = BorderFactory.createTitledBorder("Ventas totales");
 		border.setTitleFont(Fonts.title(20));
-		border.setTitleColor(Color.DARK_GRAY);
+		border.setTitleColor(Color.WHITE);
 
 		JPanel pnlTotalSales = new JPanel();
 		pnlTotalSales.setBorder(border);
@@ -141,13 +141,13 @@ public class Reports extends JPanel {
 		pnlTotalSales.setLayout(null);
 
 		JLabel lblStartT = new JLabel("Fecha inicio");
-		lblStartT.setForeground(Color.BLACK);
+		
 		lblStartT.setFont(Fonts.text(13));
 		lblStartT.setBounds(25, 43, 100, 25);
 		pnlTotalSales.add(lblStartT);
 
 		JLabel lblEndT = new JLabel("Fecha fin");
-		lblEndT.setForeground(Color.BLACK);
+		
 		lblEndT.setFont(Fonts.text(13));
 		lblEndT.setBounds(25, 90, 100, 25);
 		pnlTotalSales.add(lblEndT);
@@ -172,25 +172,25 @@ public class Reports extends JPanel {
 		pnlTotalSales.add(btnLoad);
 
 		JLabel lblReservationsT = new JLabel("Reservaciones:");
-		lblReservationsT.setForeground(Color.BLACK);
+		
 		lblReservationsT.setFont(Fonts.text(13));
 		lblReservationsT.setBounds(354, 43, 112, 25);
 		pnlTotalSales.add(lblReservationsT);
 
 		JLabel lblLodgingT = new JLabel("Total hospedaje:");
-		lblLodgingT.setForeground(Color.BLACK);
+		
 		lblLodgingT.setFont(Fonts.text(13));
 		lblLodgingT.setBounds(354, 78, 112, 25);
 		pnlTotalSales.add(lblLodgingT);
 
 		JLabel lblTotalFoodT = new JLabel("Total alimentos:");
-		lblTotalFoodT.setForeground(Color.BLACK);
+		
 		lblTotalFoodT.setFont(Fonts.text(13));
 		lblTotalFoodT.setBounds(354, 114, 112, 25);
 		pnlTotalSales.add(lblTotalFoodT);
 
 		JLabel lblTotalT = new JLabel("Total:");
-		lblTotalT.setForeground(Color.BLACK);
+		
 		lblTotalT.setFont(Fonts.text(13));
 		lblTotalT.setBounds(354, 150, 112, 25);
 		pnlTotalSales.add(lblTotalT);

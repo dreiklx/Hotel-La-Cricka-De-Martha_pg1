@@ -1,6 +1,8 @@
 package com.practicaguiadauno.mvc.view.reservations;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.*;
 
 import com.toedter.calendar.JDateChooser;
@@ -27,11 +29,12 @@ public class Edit extends BackgroundCustom {
     private JButton btnCancel;
 
     public Edit() {
-    	super(LoadImages.Background);
+    	super(LoadImages.BSim);
         setLayout(null);
         JPanel panel = new JPanel();
-        panel.setBounds(0, 0, 525, 300);
-        panel.setBackground(new Color(41,77,76,50));
+        panel.setBounds(25, 25, 525, 300);
+		panel.setBorder(new LineBorder(new Color(255, 228, 181), 3, true));
+		panel.setBackground(new Color(41,77,76,200));
         add(panel);
         panel.setLayout(null);
 

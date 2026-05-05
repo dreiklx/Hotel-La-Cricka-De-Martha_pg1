@@ -18,5 +18,9 @@ public class LoadImages {
 		public static final ImageIcon Background=new ImageIcon(LoadImages.class.getResource("/images/BackgroundHd.jpg"));
 		public static final ImageIcon Yes=new ImageIcon(LoadImages.class.getResource("/images/check.png"));
 		public static final ImageIcon No=new ImageIcon(LoadImages.class.getResource("/images/x.png"));
-
+		public static final ImageIcon ma=new ImageIcon(LoadImages.class.getResource("/images/ma.png"));
+		public static final ImageIcon ho=new ImageIcon(LoadImages.class.getResource("/images/ho.png"));
+		public static final ImageIcon BSim=new ImageIcon(LoadImages.class.getResource("/images/BackSimple.png"));
+		
+		
 }

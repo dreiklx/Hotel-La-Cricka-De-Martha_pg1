@@ -8,11 +8,13 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.practicaguiadauno.mvc.model.Food; // antes Alimento
 import com.practicaguiadauno.mvc.model.FoodCategory; // antes CategoriaAlimento
+import com.practicaguiadauno.mvc.view.components.BackgroundCustom;
 import com.practicaguiadauno.utils.Fonts;
 import com.practicaguiadauno.utils.ImageUtils;
 import com.practicaguiadauno.utils.LoadImages;
@@ -49,6 +51,7 @@ public class FoodView extends JPanel {
 	private JButton btnDelete;
 
 	public FoodView() {
+		setBorder(new LineBorder(new Color(41,77,76), 10, true));
 		setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
 		pnlComponentsReservation();
@@ -172,25 +175,25 @@ public class FoodView extends JPanel {
 		pnl.setLayout(null);
 
 		JLabel lblCategoryT = new JLabel("Categoria:");
-		lblCategoryT.setForeground(Color.BLACK);
+
 		lblCategoryT.setFont(Fonts.text(13));
 		lblCategoryT.setBounds(10, 11, 67, 25);
 		pnl.add(lblCategoryT);
 
 		JLabel lblFoodT = new JLabel("Alimento:");
-		lblFoodT.setForeground(Color.BLACK);
+
 		lblFoodT.setFont(Fonts.text(13));
 		lblFoodT.setBounds(10, 47, 67, 25);
 		pnl.add(lblFoodT);
 
 		JLabel lblLotT = new JLabel("Cantidad:");
-		lblLotT.setForeground(Color.BLACK);
+
 		lblLotT.setFont(Fonts.text(13));
 		lblLotT.setBounds(10, 83, 67, 25);
 		pnl.add(lblLotT);
 
 		JLabel lblSubTotalT = new JLabel("Subtotal:");
-		lblSubTotalT.setForeground(Color.BLACK);
+
 		lblSubTotalT.setFont(Fonts.text(13));
 		lblSubTotalT.setBounds(10, 137, 79, 25);
 		pnl.add(lblSubTotalT);
@@ -266,22 +269,26 @@ public class FoodView extends JPanel {
 
 	public void pnlComponentsResult() {
 
-		JPanel pnlResult = new JPanel();
-		pnlResult.setBackground(new Color(220, 236, 250)); 
+		JPanel pnlResult = new BackgroundCustom(LoadImages.ho);
+		pnlResult.setBackground(new Color(105, 105, 105)); 
 		pnlResult.setPreferredSize(new Dimension(10, 100));
 		add(pnlResult, BorderLayout.SOUTH);
 		pnlResult.setLayout(null);
 
 		JLabel lblTotalFoodT = new JLabel("Total alimentos:");
-		lblTotalFoodT.setForeground(Color.BLACK);
-		lblTotalFoodT.setBounds(10, 33, 145, 25);
-		lblTotalFoodT.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblTotalFoodT.setBorder(new LineBorder(new Color(255, 228, 181), 3, true));
+		lblTotalFoodT.setBackground(new Color(41,77,76,200));
+		lblTotalFoodT.setOpaque(true);
+		lblTotalFoodT.setBounds(30, 25, 145, 40);
+		lblTotalFoodT.setFont(Fonts.text(17));
 		pnlResult.add(lblTotalFoodT);
 
 		lblTotalFood = new JLabel("");
-		lblTotalFood.setForeground(Color.BLACK);
-		lblTotalFood.setFont(new Font("Dialog", Font.PLAIN, 20));
-		lblTotalFood.setBounds(157, 33, 176, 25);
+		lblTotalFood.setBorder(new LineBorder(new Color(255, 228, 181), 3, true));
+		lblTotalFood.setOpaque(true);
+		lblTotalFood.setBackground(new Color(41,77,76,200));
+		lblTotalFood.setFont(Fonts.text(17));
+		lblTotalFood.setBounds(174, 25, 174, 40);
 		pnlResult.add(lblTotalFood);
 
 		btnSave = new JButton("Guardar");

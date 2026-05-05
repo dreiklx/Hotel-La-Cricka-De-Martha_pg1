@@ -74,43 +74,43 @@ public class See extends JPanel {
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("ID:");
-		lblNewLabel.setForeground(Color.BLACK);
+		
 		lblNewLabel.setFont(Fonts.text(13));
 		lblNewLabel.setBounds(10, 30, 24, 25);
 		panel.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Fecha de entrada:");
-		lblNewLabel_1.setForeground(Color.BLACK);
+		
 		lblNewLabel_1.setFont(Fonts.text(13));
 		lblNewLabel_1.setBounds(10, 156, 125, 25);
 		panel.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Cliente:");
-		lblNewLabel_2.setForeground(Color.BLACK);
+		
 		lblNewLabel_2.setFont(Fonts.text(13));
 		lblNewLabel_2.setBounds(10, 55, 46, 25);
 		panel.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Tarifa por persona por noche:");
-		lblNewLabel_3.setForeground(Color.BLACK);
+		
 		lblNewLabel_3.setFont(Fonts.text(13));
 		lblNewLabel_3.setBounds(10, 131, 178, 25);
 		panel.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("Habitación:");
-		lblNewLabel_4.setForeground(Color.BLACK);
+		
 		lblNewLabel_4.setFont(Fonts.text(13));
 		lblNewLabel_4.setBounds(10, 81, 115, 25);
 		panel.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("Capacidad máxima:");
-		lblNewLabel_5.setForeground(Color.BLACK);
+		
 		lblNewLabel_5.setFont(Fonts.text(13));
 		lblNewLabel_5.setBounds(10, 106, 115, 25);
 		panel.add(lblNewLabel_5);
 
 		JLabel lblNewLabel_6 = new JLabel("Fecha de salida:");
-		lblNewLabel_6.setForeground(Color.BLACK);
+		
 		lblNewLabel_6.setFont(Fonts.text(13));
 		lblNewLabel_6.setBounds(10, 181, 125, 25);
 		panel.add(lblNewLabel_6);

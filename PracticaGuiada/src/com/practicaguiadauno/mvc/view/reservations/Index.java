@@ -65,9 +65,9 @@ public class Index extends JPanel {
 		lblSearch.setHorizontalAlignment(SwingConstants.LEFT);
 		pnlSearch.add(lblSearch);
 
-		txtSearch = new JTextField();
+		txtSearch =  new JTextField();
 		txtSearch.setHorizontalAlignment(SwingConstants.LEFT);
-		txtSearch.setPreferredSize(new Dimension(300, 30));
+		txtSearch.setPreferredSize(new Dimension(500, 30));
 		txtSearch.setFont(Fonts.text(13));
 		txtSearch.setColumns(10);
 		pnlSearch.add(txtSearch);

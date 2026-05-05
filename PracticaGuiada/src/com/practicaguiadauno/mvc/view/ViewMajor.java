@@ -37,7 +37,7 @@ public class ViewMajor extends JFrame {
 		
 		setIconImage(ImageUtils.getScaledIcon(LoadImages.Icon, 128, 128).getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1056, 602);
+		setBounds(100, 100, 1400, 800);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
@@ -53,7 +53,7 @@ public class ViewMajor extends JFrame {
 		setTitle("La Cricka de Martha");
 		setLocationRelativeTo(null);
 		setVisible(true); 
-		// antes se llamaba primero visible y luego location → mala práctica
+		setResizable(false);
 	}
 
 	public void initComponents() {
@@ -104,6 +104,7 @@ public class ViewMajor extends JFrame {
 		pnlHeader.setLayout(new BorderLayout(0, 0));
  
 		lblTitle = new JLabel("Hotel La Cricka de Martha - Nueva Reservación");
+		lblTitle.setBackground(Color.WHITE);
 		lblTitle.setFont(Fonts.title(30));
 		lblTitle.setForeground(new Color(51, 0, 0));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);

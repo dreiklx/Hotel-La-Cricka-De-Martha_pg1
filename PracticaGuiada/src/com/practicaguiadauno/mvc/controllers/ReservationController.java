@@ -225,7 +225,11 @@ public class ReservationController extends Functions {
 
 				int people = (int) v.getSpnPeople().getValue();
 
-				if (people <= 0) throw new Exception("Cantidad inválida");
+				if (people <= 0) {
+					throw new Exception("Cantidad inválida");
+					
+				}
+				
 
 				if (people > room.getCapacity()) {
 					throw new Exception("Supera capacidad");
@@ -376,6 +380,9 @@ public class ReservationController extends Functions {
 	    } else {
 	        v.getLblAvailablePeople().setIcon(ImageUtils.getIcon("check.png", 32, 32));
 	    }
+	    
+
+	    if(people<=0)v.getLblAvailablePeople().setIcon(ImageUtils.getIcon("x.png", 32, 32));
 
 	    v.refreshRequirements();
 	    updateCalculations(v);
@@ -391,7 +398,6 @@ public class ReservationController extends Functions {
 	    if (entry == null || exit == null) return;
 
 	    v.getLblAvailableRoom().setText("");
-	    v.getLblAvailableRoom().setOpaque(false);
 
 	    if (!reservations.isAvailable(room, entry, exit)) {
 	        v.getLblAvailableRoom().setIcon(ImageUtils.getIcon("x.png", 32, 32));
